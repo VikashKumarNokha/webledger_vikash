@@ -12,19 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import GoogleButton from 'react-google-button'
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -107,6 +95,11 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
+               <hr/>
+              <GoogleButton
+                type="dark" // can be light or dark
+                onClick={() => { console.log('Google button clicked') }}
+              /> 
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
@@ -119,7 +112,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              {/* <Copyright sx={{ mt: 5 }} /> */}
+              
             </Box>
           </Box>
         </Grid>

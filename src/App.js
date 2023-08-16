@@ -1,10 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import SignInSide from './pages/Login';
+import SignUpSide from './pages/Register';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
-        <div>heloo world</div>
+    <div>
+        <SignInSide/>
+        <SignUpSide/>
+        <Footer/>
+
     </div>
   );
 }

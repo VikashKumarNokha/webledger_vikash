@@ -1,17 +1,19 @@
 
 import SignInSide from './pages/Login';
 import SignUpSide from './pages/Register';
-import Footer from './components/Footer';
-import PrimarySearchAppBar from './components/Navbar';
+import { Routes, Route } from 'react-router-dom';
+import Home from "./pages/Home"
 
 
 function App() {
   return (
     <div>
-       <PrimarySearchAppBar/>
-        <SignInSide/>
-        <SignUpSide/>
-        <Footer/>
+      <Routes>
+      <Route path="/" element={<SignInSide/>} />
+      <Route path="/register" element={<SignUpSide/>} />
+      <Route path="/Homepage" element={<Home/>} />
+      
+      </Routes> 
 
     </div>
   );

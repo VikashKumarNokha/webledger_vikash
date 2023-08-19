@@ -3,6 +3,7 @@ import SignInSide from './pages/Login';
 import SignUpSide from './pages/Register';
 import { Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home"
+import RecipeDetails from './pages/RecipeDetails';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Route path="/" element={<SignInSide/>} />
       <Route path="/register" element={<SignUpSide/>} />
       <Route path="/Homepage" element={<Home/>} />
+      <Route path="/recipedetails" element={<RecipeDetails/>} />
       
       </Routes> 
 

@@ -1,4 +1,7 @@
 import * as React from "react";
+import axios from "axios";
+import { baseUrl } from "../utilities/urls";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,17 +15,45 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 const theme = createTheme();
 
+
+
+
 export default function SignUpSide() {
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    // console.log("yyyyyy", {
+    //   firstname: data.get("firstName"),
+    //   lastname: data.get("lastName"),
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // });
+
+     var payload = {
+      firstname: data.get("firstName"),
+      lastname: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
+      
+    if(payload.firstname !== "" &&  payload.lastname !== "" &&  payload.email !== "" &&  payload.password !== "" ){
+       return  axios.post( baseUrl + "register" ,payload).then((res)=>{
+                if(res?.data?.userStatusForWrong){
+                   alert(res.data.message);
+                }else{
+                    
+                }
+         }).catch((err)=>{
+            console.log("err", err);
+         })
+    }else{
+        alert("Please fill all input boxes");
+    }
+
+
   };
 
   return (

@@ -1,6 +1,9 @@
 import * as React from 'react';
 import axios from 'axios';
 import { baseUrl } from '../utilities/urls';
+import { useNavigate } from 'react-router-dom';
+import { saveLocalData } from '../utilities/LocalStorage';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -22,6 +25,8 @@ import GoogleButton from 'react-google-button'
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,7 +45,8 @@ export default function SignInSide() {
                 if(res.data.userStatusForWrong){
                    alert(res?.data?.message);
                 }else{
-                    
+                    saveLocalData("userDetails", res.data ) 
+                  navigate("/", {replace : true}); 
                 }
          }).catch((err)=>{
             console.log("err", err);
@@ -131,9 +137,11 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                <RouterLink to="/register" >
+                  <Link href="" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
+                  </RouterLink>
                 </Grid>
               </Grid>
               

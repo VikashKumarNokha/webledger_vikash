@@ -1,6 +1,8 @@
 import * as React from "react";
 import axios from "axios";
 import { baseUrl } from "../utilities/urls";
+import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from 'react-router-dom';
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -21,6 +23,7 @@ const theme = createTheme();
 
 
 export default function SignUpSide() {
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,7 +47,7 @@ export default function SignUpSide() {
                 if(res?.data?.userStatusForWrong){
                    alert(res.data.message);
                 }else{
-                    
+                  navigate("/login", {replace : true })  
                 }
          }).catch((err)=>{
             console.log("err", err);
@@ -161,9 +164,11 @@ export default function SignUpSide() {
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="#" variant="body2">
+                <RouterLink to="/login" >
+                  <Link href="" variant="body2">
                     Already have an account? Sign in
                   </Link>
+                  </RouterLink>
                 </Grid>
               </Grid>
             </Box>

@@ -35,12 +35,12 @@ https://github.com/VikashKumarNokha/webledger_backend_vikash
 ###  cors (2.8.5)
 ### dotenv  (16.3.1)
 ### express  (4.18.2)
-### "jsonwebtoken (9.0.1)
-### "mongoose (7.4.3)
- ### "nodemon (3.0.1)
- ### "passport (0.6.0 )
- ### "passport-google-oauth20 (2.0.0 )
-### "uuid (9.0.0)
+### jsonwebtoken (9.0.1)
+### mongoose (7.4.3)
+ ### nodemon (3.0.1)
+ ### passport (0.6.0 )
+ ### passport-google-oauth20 (2.0.0 )
+###  uuid (9.0.0)
 
 
 <h1>Thank you for visiting...!</h1>

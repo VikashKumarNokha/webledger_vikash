@@ -55,7 +55,6 @@ export default function SignInSide() {
         alert("Please fill all input boxes");
     }
 
-
   };
 
   return (
@@ -126,10 +125,12 @@ export default function SignInSide() {
                 Sign In
               </Button>
                <hr/>
-              <GoogleButton
+               <div style={{display :"flex",  flexDirection :"row", justifyContent :"center", marginLeft :"0%"}} >
+               <GoogleButton
                 type="dark" // can be light or dark
-                onClick={() => { console.log('Google button clicked') }}
-              /> 
+                onClick={() => {  console.log('Google button clicked') }}
+                /> 
+              </div>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">

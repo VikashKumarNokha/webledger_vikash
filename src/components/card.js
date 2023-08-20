@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Link as RouterLink} from 'react-router-dom';
+import axios from 'axios';
+import { getLocalData } from '../utilities/LocalStorage';
 
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -16,6 +18,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { baseUrl } from '../utilities/urls';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -36,6 +39,30 @@ export default function RecipeReviewCard({singleItem}) {
   };
 
   // console.log("ssssssssss",singleItem)
+
+    const favarateRecipeFun = ()=>{
+
+      let isAuth =  getLocalData("userDetails")
+
+       let payload = {
+          id :  singleItem?.id,
+          title : singleItem?.title,
+          image : singleItem?.image,
+          user_id : isAuth?.user?._id
+       }
+        console.log("pppp", payload);
+        return axios.post( baseUrl + "favproduct", payload).then((res)=>{
+           console.log("ress", res?.data);
+            if(res?.data?.message){
+                alert(res?.data?.message);
+                return;
+            }
+            alert("The Recipe added in your faverate cart");
+        }).catch((err)=>{
+          console.log("err", err);
+        })
+    }
+
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -68,7 +95,7 @@ export default function RecipeReviewCard({singleItem}) {
       </CardContent>
       <CardActions disableSpacing>
         
-        <IconButton onClick={()=>{console.log("savedddd")}} aria-label="add to favorites">
+        <IconButton onClick={()=>{favarateRecipeFun()}} aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
 

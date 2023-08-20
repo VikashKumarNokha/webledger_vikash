@@ -1,4 +1,10 @@
 import * as React from 'react';
+import {Link as RouterLink, useNavigate} from "react-router-dom"
+import { baseUrl } from '../utilities/urls';
+import { getLocalData, removeLocalStirage, saveLocalData } from '../utilities/LocalStorage';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,6 +22,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useActionData } from 'react-router-dom';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,12 +65,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar({searchtext}) {
+
+   const navigate = useNavigate();
+   
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const  [data, setData] = useState([]);
+
+  let isAuth = getLocalData("userDetails");
+  
+
+  const favFun = ()=>{
+    
+   let payload = {
+      user_id :  isAuth?.user?._id
+   }
+   return axios.get( baseUrl + "favproduct", payload).then((res)=>{
+        setData(res?.data?.products);
+   }).catch((err)=>{
+       console.log("err", err);
+   })
+}
+
+useEffect(()=>{
+   if(data.length == 0){
+      favFun();
+   }
+   
+},[]);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,6 +110,12 @@ export default function PrimarySearchAppBar({searchtext}) {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+
+    const logoutfun = ()=>{
+      removeLocalStirage("userDetails"); 
+      navigate("/login");
+
+    }
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -99,8 +138,8 @@ export default function PrimarySearchAppBar({searchtext}) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>{ isAuth ? isAuth?.user?.firstname : "User" }</MenuItem>
+      <MenuItem onClick={logoutfun}>Logout</MenuItem>
     </Menu>
   );
 
@@ -122,12 +161,16 @@ export default function PrimarySearchAppBar({searchtext}) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
+
+      <RouterLink to={"/faverate"} >
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
+          <Badge badgeContent={data?.length} color="error">
+            {/* <MailIcon /> */}
+            <FavoriteIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+       </RouterLink>
+        <p>Favourite</p>
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -160,22 +203,24 @@ export default function PrimarySearchAppBar({searchtext}) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          <RouterLink to={"/"} > 
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
+            color="white"
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
+          </RouterLink>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+           
           </Typography>
 
            {/* search box here------------------------------------- */}
@@ -192,11 +237,16 @@ export default function PrimarySearchAppBar({searchtext}) {
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
+           
+          <RouterLink to={"/faverate"} >
+            <IconButton  size="large" aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={data?.length} color="error">
+                {/* <MailIcon /> */}
+                <FavoriteIcon />
               </Badge>
             </IconButton>
+            </RouterLink>
+
             <IconButton
               size="large"
               aria-label="show 17 new notifications"

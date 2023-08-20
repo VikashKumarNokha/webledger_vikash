@@ -17,7 +17,7 @@ export default function Home() {
 
    //  nitesh apikey b08a9b7f97844bab9038da7928473002
    // vikash apikey  f4a506a667424c129c936e2ff53efb61  
-
+  //  umlesh apikey  35ed73d2460c412cb055c8c27e8098ea
       const searchTextFun = (value)=>{
            setSearchedText(value)
            getDataFromApi();
@@ -31,7 +31,7 @@ export default function Home() {
 
      function getDataFromApi(){ 
             setLoading(true);      
-         return axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=b08a9b7f97844bab9038da7928473002&titleMatch=${searchedText}&number=20&offset=${page >0 ? (page-1)*10 : page*20}`)
+         return axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=35ed73d2460c412cb055c8c27e8098ea&titleMatch=${searchedText}&number=20&offset=${page >0 ? (page-1)*10 : page*20}`)
          .then((res)=>{
            // console.log("ress", res.data);
              setData(res?.data);

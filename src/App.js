@@ -12,7 +12,7 @@ function App() {
     <div>
       <Routes>
       <Route path="/" element={ <ReqAuth> <Home/> </ReqAuth> } />
-      <Route path="/recipedetails" element={ <ReqAuth> <RecipeDetails/> </ReqAuth> } />
+      <Route path="/:id" element={ <ReqAuth> <RecipeDetails/> </ReqAuth> } />
       <Route path="/login" element={<SignInSide/>} />
       <Route path="/register" element={<SignUpSide/>} /> 
       </Routes> 

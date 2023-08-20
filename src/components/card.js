@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Link as RouterLink} from 'react-router-dom';
+
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -26,12 +28,14 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({singleItem}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  // console.log("ssssssssss",singleItem)
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -49,23 +53,25 @@ export default function RecipeReviewCard() {
         title="Shrimp and Chorizo Paella"
         subheader="September 14, 2016"
       /> */}
+      <RouterLink to={`/${singleItem?.id}`} >
       <CardMedia
         component="img"
         height="194"
-        src= "https://spoonacular.com/recipeImages/642610-312x231.jpg"
+        src= {singleItem?.image}
         alt="Paella dish"
       />
+      </RouterLink>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          {singleItem?.title}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        
+        <IconButton onClick={()=>{console.log("savedddd")}} aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
+
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
